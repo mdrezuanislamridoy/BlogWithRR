@@ -1,34 +1,18 @@
-const fs = require("fs");
-const path = require("path");
-
-const dbFilePath = path.resolve(__dirname, "../../db.json");
-let data = require(dbFilePath);
+const data = require("../../db.json");
 
 exports.handler = async (event, context) => {
-  if (event.httpMethod === "GET") {
+  const { path } = event;
+
+  if (path.includes("/posts")) {
     return {
       statusCode: 200,
       body: JSON.stringify(data.posts),
     };
-  }
-
-  if (event.httpMethod === "POST") {
-    try {
-      const newPost = JSON.parse(event.body);
-      data.posts.push(newPost);
-
-      fs.writeFileSync(dbFilePath, JSON.stringify(data, null, 2));
-
-      return {
-        statusCode: 201,
-        body: JSON.stringify(newPost),
-      };
-    } catch (error) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "Failed to save data" }),
-      };
-    }
+  } else if (path.includes("/comments")) {
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data.comments),
+    };
   }
 
   return {
