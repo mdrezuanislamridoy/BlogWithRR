@@ -8,7 +8,9 @@ export default function ContextProvider({ children }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:4000/posts");
+      const response = await fetch(
+        "https://blogwithrr.netlify.app/.netlify/functions/api/posts"
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

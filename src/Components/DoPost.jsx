@@ -25,7 +25,7 @@ export default function ({ setHideShow }) {
       description,
     };
 
-    fetch("http://localhost:4000/posts", {
+    fetch("https://blogwithrr.netlify.app/.netlify/functions/api/postst", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
